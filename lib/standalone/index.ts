@@ -2,7 +2,7 @@ import type AjvCore from "../core"
 import type {AnyValidateFunction, SourceCode} from "../types"
 import type {SchemaEnv} from "../compile"
 import {UsedScopeValues, UsedValueState, ValueScopeName, varKinds} from "../compile/codegen/scope"
-import {_, nil, _Code, Code, getProperty, getEsmExportName} from "../compile/codegen/code"
+import {_, nil, _Code, Code, getProperty} from "../compile/codegen/code"
 
 function standaloneCode(
   ajv: AjvCore,
@@ -48,9 +48,9 @@ function standaloneCode(
       if (v) {
         const vCode = validateCode(usedValues, v.source)
         const exportSyntax = ajv.opts.code.esm
-          ? _`export const ${getEsmExportName(name)}`
-          : _`exports${getProperty(name)}`
-        code = _`${code}${_n}${exportSyntax} = ${v.source?.validateName};${_n}${vCode}`
+          ? _`export { ${v.source?.validateName} as ${name} };`
+          : _`exports${getProperty(name)} = ${v.source?.validateName};`
+        code = _`${code}${_n}${exportSyntax}${_n}${vCode}`
       }
     }
     return `${code}`
