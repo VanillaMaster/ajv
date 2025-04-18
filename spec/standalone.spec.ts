@@ -9,7 +9,7 @@ import assert = require("assert")
 
 function testExportTypeEsm(moduleCode: string, singleExport: boolean) {
   //Must have
-  assert.strictEqual(moduleCode.includes("export const"), true)
+  assert.strictEqual(moduleCode.includes("export {"), true)
   if (singleExport) {
     assert.strictEqual(moduleCode.includes("export default"), true)
   }
