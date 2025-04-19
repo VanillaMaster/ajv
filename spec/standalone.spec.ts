@@ -11,7 +11,7 @@ function testExportTypeEsm(moduleCode: string, singleExport: boolean) {
   //Must have
   assert.strictEqual(moduleCode.includes("export {"), true)
   if (singleExport) {
-    assert.strictEqual(moduleCode.includes("export default"), true)
+    assert.strictEqual(moduleCode.includes("as default"), true)
   }
   //Must not have
   assert.strictEqual(moduleCode.includes("module.exports"), false)
